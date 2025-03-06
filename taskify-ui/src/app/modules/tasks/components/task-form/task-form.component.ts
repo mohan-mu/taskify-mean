@@ -22,20 +22,16 @@ import { MatSelectModule } from '@angular/material/select';
   styleUrl: './task-form.component.scss',
 })
 export default class TaskFormComponent {
-    readonly minDate = new Date();
-    private fb = inject(FormBuilder);
-    tasksForm = this.fb.group({
-      title: [null, Validators.required],
-      description: [null],
-      dueDate: [null],
-      priority: [null],
-      status:['Pending']
-    });
-
-
-    onSubmit(): void {
-      alert('Thanks!');
-    }
+  readonly minDate = new Date();
+  private fb = inject(FormBuilder);
+  tasksForm = this.fb.group({
+    title: ['', Validators.required],
+    description: [''],
+    dueDate: [new Date()],
+    priority: ['Low'],
+    status: ['Pending'],
+  });
+  onSubmit(): void {
+    alert('Thanks!');
+  }
 }
-
-

@@ -12,18 +12,18 @@ import { map } from 'rxjs';
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
-  standalone:true,
-   imports: [
-      AsyncPipe,
-      MatGridListModule,
-      MatMenuModule,
-      MatIconModule,
-      MatButtonModule,
-      MatCardModule
-    ]
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    MatGridListModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
+    MatCardModule,
+  ],
 })
 export default class TaskListComponent {
- private breakpointObserver = inject(BreakpointObserver);
+  private breakpointObserver = inject(BreakpointObserver);
 
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
@@ -33,7 +33,7 @@ export default class TaskListComponent {
           { title: 'Card 1', cols: 1, rows: 1 },
           { title: 'Card 2', cols: 1, rows: 1 },
           { title: 'Card 3', cols: 1, rows: 1 },
-          { title: 'Card 4', cols: 1, rows: 1 }
+          { title: 'Card 4', cols: 1, rows: 1 },
         ];
       }
 

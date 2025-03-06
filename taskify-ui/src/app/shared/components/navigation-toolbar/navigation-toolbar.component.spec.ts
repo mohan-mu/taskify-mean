@@ -15,7 +15,7 @@ describe('NavigationToolbarComponent', () => {
         MatListModule,
         MatSidenavModule,
         MatToolbarModule,
-      ]
+      ],
     });
   }));
 

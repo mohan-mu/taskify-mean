@@ -6,19 +6,19 @@ const doc = {
     description: 'Taskify API',
     components: {
       schemas: {
-          title: 'Task',
-          required: [ 'title' ],
-          properties: {
-            title: { type: 'string' },
-            description: { type: 'string' },
-            dueDate: { type: 'string', format: 'date-time' },
-            priority: { type: 'string', enum: [Array] },
-            status: { type: 'string', enum: [Array] },
-            createdBy: { type: 'schemaobjectid' },
-            _id: { type: 'string' }
-          }
-      }
-    }
+        title: 'Task',
+        required: ['title'],
+        properties: {
+          title: { type: 'string' },
+          description: { type: 'string' },
+          dueDate: { type: 'string', format: 'date-time' },
+          priority: { type: 'string', enum: [Array] },
+          status: { type: 'string', enum: [Array] },
+          createdBy: { type: 'schemaobjectid' },
+          _id: { type: 'string' },
+        },
+      },
+    },
   },
 };
 

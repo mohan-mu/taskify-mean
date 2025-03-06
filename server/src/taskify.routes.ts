@@ -51,10 +51,9 @@ taskifyRouter.post('/', async (req, res) => {
 
 taskifyRouter.put('/:id', async (req, res) => {
   try {
-    
     const id = req?.params?.id;
     const update = req.body;
-    Task.findByIdAndUpdate(id,update).then(
+    Task.findByIdAndUpdate(id, update).then(
       data => {
         res.status(200).json({ data });
       },
@@ -107,7 +106,7 @@ taskifyRouter.put('/:id', async (req, res) => {
 taskifyRouter.delete('/:id', async (req, res) => {
   try {
     const id = req?.params?.id;
-    
+
     Task.findByIdAndDelete(id).then(
       data => {
         res.status(200).json({ data });

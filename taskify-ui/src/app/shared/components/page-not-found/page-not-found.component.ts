@@ -3,10 +3,8 @@ import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-page-not-found',
-  standalone:true,
+  standalone: true,
   templateUrl: './page-not-found.component.html',
-  styleUrl: './page-not-found.component.scss'
+  styleUrl: './page-not-found.component.scss',
 })
-export default class PageNotFoundComponent {
-
-}
+export default class PageNotFoundComponent {}

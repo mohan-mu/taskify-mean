@@ -10,12 +10,10 @@ https://github.com/chermdev/conventional-commits-setup?tab=readme-ov-file
 
 https://www.npmjs.com/package/concurrently
 
+### Mongoose
 
-### Mongoose 
 https://www.mongodb.com/developer/languages/javascript/getting-started-with-mongodb-and-mongoose/
 
-
-### UI 
+### UI
 
 https://medium.com/netanelbasal/binding-router-information-to-routed-component-inputs-in-angular-78ee92f63e64
-
