@@ -2,12 +2,26 @@
   "scripts": {
     "server-standalone": "npx ts-node server/src/server.ts",
     "ui-standalone": "cd ./taskify-ui/ && ng serve",
-    "start": "concurrently \"npm run server-standalone\" \" npm run ui-standalone\""
+    "start": "concurrently \"npm run server-standalone\" \" npm run ui-standalone\"",
+    "format": "prettier . --write ",
+    "check-format": "prettier . --check "
   },
   "devDependencies": {
     "@commitlint/cli": "^19.7.1",
     "@commitlint/config-conventional": "^19.7.1",
     "concurrently": "^9.1.2",
-    "husky": "^9.1.7"
+    "husky": "^9.1.7",
+    "prettier": "3.5.3"
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "useTabs": false,
+    "singleQuote": true,
+    "semi": true,
+    "bracketSpacing": true,
+    "arrowParens": "avoid",
+    "trailingComma": "es5",
+    "bracketSameLine": true,
+    "printWidth": 80
   }
 }

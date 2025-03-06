@@ -1,5 +1,5 @@
-import * as mongodb from "mongodb";
+import * as mongodb from 'mongodb';
 
 export interface Task {
-    _id?: mongodb.ObjectId;
+  _id?: mongodb.ObjectId;
 }
