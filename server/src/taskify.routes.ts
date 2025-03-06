@@ -8,7 +8,7 @@ taskifyRouter.get('/', async (_req, res) => {
   try {
     Task.find({}).then(
       data => {
-        res.status(200).json({ data });
+        res.status(200).json( [...data ]);
       },
       error => res.status(400).json({ error })
     );
@@ -37,10 +37,13 @@ taskifyRouter.get('/:id', async (req, res) => {
 taskifyRouter.post('/', async (req, res) => {
   try {
     const task = new Task(req.body);
+    console.log({task})
     task
       .save()
-      .then(() => console.log('Task saved'))
-      .catch(err => console.error('Error:', err));
+      .then(data => {
+        res.status(200).json({ data });
+      },
+      error => res.status(400).json({ error }))
   } catch (error) {
     console.error(error);
     res

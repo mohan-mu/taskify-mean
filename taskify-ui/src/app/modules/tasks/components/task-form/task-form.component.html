@@ -23,9 +23,9 @@
               matInput
               placeholder="Description"
               formControlName="description"></textarea>
-            @if (tasksForm.controls['description'].hasError('required')) {
-              <mat-error>Address is <strong>required</strong></mat-error>
-            }
+            <!-- @if (tasksForm.controls['description'].hasError('required')) {
+              <mat-error>Description is <strong>required</strong></mat-error>
+            } -->
           </mat-form-field>
         </div>
       </div>
@@ -47,6 +47,7 @@
           </mat-form-field>
         </div>
         <div class="col">
+          <!-- Object.entries(GoalProgressMeasurement) -->
           <mat-form-field class="full-width" appearance="outline">
             <mat-select placeholder="Priority" formControlName="priority">
               <mat-option value="Low">Low</mat-option>
@@ -72,11 +73,17 @@
     <mat-card-actions>
       <button
         mat-raised-button
-        [disabled]="tasksForm.invalid"
+        [disabled]="(isLoading | async) || tasksForm.invalid"
         (click)="onSubmit()"
         color="primary"
         type="submit">
-        Submit
+        <span>
+          @if (isLoading | async) {
+            <mat-spinner [diameter]="20"></mat-spinner>
+          } @else {
+            Submit
+          }
+        </span>
       </button>
     </mat-card-actions>
   </mat-card>

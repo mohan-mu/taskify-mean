@@ -1,35 +1,25 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Tasks } from '../interfaces/tasks';
+import { Task } from '../interfaces/tasks';
+import { environment } from '../../../../environments/environment';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class TasksHttpService {
   private _http = inject(HttpClient);
-  url = '';
+  private _url = environment.apiUrl;
 
-  getEmployee(id: string) {
-    this._http
-      .get<Tasks>(`${this.url}/employees/${id}`)
-      .subscribe(employee => {});
+  getTasks() {
+    return this._http.get<Task[]>(`${this._url}`);
+  }
+  createTask(task: Task) {
+    return this._http.post<Task[]>(`${this._url}`, { ...task });
   }
 
-  createEmployee(employee: Tasks) {
-    return this._http.post(`${this.url}/employees`, employee, {
-      responseType: 'text',
-    });
+  updateTask(id: string, task: Task) {
+    return this._http.put(`${this._url}/${id}`, task);
   }
 
-  updateEmployee(id: string, employee: Tasks) {
-    return this._http.put(`${this.url}/employees/${id}`, employee, {
-      responseType: 'text',
-    });
-  }
-
-  deleteEmployee(id: string) {
-    return this._http.delete(`${this.url}/employees/${id}`, {
-      responseType: 'text',
-    });
+  deleteTask(id: string) {
+    return this._http.delete(`${this._url}/task/${id}`);
   }
 }
