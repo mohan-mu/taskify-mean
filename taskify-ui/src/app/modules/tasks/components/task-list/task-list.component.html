@@ -1,17 +1,17 @@
 <div class="grid-container">
+  <h1 class="mat-h1">Tasks List</h1>
   @if (isLoading | async) {
     <mat-spinner></mat-spinner>
-  }
-  @else {
-  <h1 class="mat-h1">Tasks List</h1>
-    <mat-grid-list cols="4" rowHeight="2:1">
-      @for (card of getTasks | async; track card) {
+  } @else {
+    @if (tasks.length >0) {
+    <mat-grid-list [cols]="cols" rowHeight="2:1">
+      @for (task of tasks; track task) {
         <mat-grid-tile>
           <mat-card appearance="outlined">
             <mat-card-header>
               <mat-card-title-group>
-                <mat-card-title>{{ card.title }}</mat-card-title>
-                <mat-card-subtitle>{{ card.priority }}</mat-card-subtitle>
+                <mat-card-title>{{ task.title }}</mat-card-title>
+                <mat-card-subtitle>{{ task.priority }}</mat-card-subtitle>
               </mat-card-title-group>
               <button
                 mat-icon-button
@@ -22,32 +22,21 @@
               </button>
               <mat-menu #menu="matMenu" xPosition="before">
                 <button mat-menu-item>Edit</button>
-                <button mat-menu-item>Delete</button>
+                <button mat-menu-item (click)="deleteTask(task._id)">
+                  Delete
+                </button>
               </mat-menu>
             </mat-card-header>
             <mat-card-content>
-              {{ card.description }}
+              {{ task.description }}
             </mat-card-content>
           </mat-card>
-          <!-- <mat-card class="tasks-card">
-          <mat-card-header>
-            <mat-card-title>
-              {{card.title}}
-              <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-                <mat-icon>more_vert</mat-icon>
-              </button>
-              <mat-menu #menu="matMenu" xPosition="before">
-                <button mat-menu-item>Edit</button>
-                <button mat-menu-item>Delete</button>
-              </mat-menu>
-            </mat-card-title>
-          </mat-card-header>
-          <mat-card-content class="tasks-card-content">
-            <div>Card Content Here</div>
-          </mat-card-content>
-        </mat-card> -->
         </mat-grid-tile>
       }
     </mat-grid-list>
+  }
+  @else {
+    <h5> No Items Found</h5>
+  }
   }
 </div>

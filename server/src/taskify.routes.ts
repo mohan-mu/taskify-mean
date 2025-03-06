@@ -4,7 +4,7 @@ import { Task } from './tasks';
 export const taskifyRouter = express.Router();
 taskifyRouter.use(express.json());
 
-taskifyRouter.get('/', async (_req, res) => {
+taskifyRouter.get('/tasks', async (_req, res) => {
   try {
     Task.find({}).then(
       data => {
@@ -19,7 +19,7 @@ taskifyRouter.get('/', async (_req, res) => {
   }
 });
 
-taskifyRouter.get('/:id', async (req, res) => {
+taskifyRouter.get('/tasks/:id', async (req, res) => {
   try {
     const id = req?.params?.id;
     // const query = { _id: new ObjectId(id) };
@@ -34,7 +34,7 @@ taskifyRouter.get('/:id', async (req, res) => {
   }
 });
 
-taskifyRouter.post('/', async (req, res) => {
+taskifyRouter.post('/tasks', async (req, res) => {
   try {
     const task = new Task(req.body);
     console.log({task})
@@ -52,7 +52,7 @@ taskifyRouter.post('/', async (req, res) => {
   }
 });
 
-taskifyRouter.put('/:id', async (req, res) => {
+taskifyRouter.put('/tasks/:id', async (req, res) => {
   try {
     const id = req?.params?.id;
     const update = req.body;
@@ -106,7 +106,7 @@ taskifyRouter.put('/:id', async (req, res) => {
   }
 });
 
-taskifyRouter.delete('/:id', async (req, res) => {
+taskifyRouter.delete('/tasks/:id', async (req, res) => {
   try {
     const id = req?.params?.id;
 

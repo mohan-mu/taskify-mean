@@ -9,17 +9,17 @@ export class TasksHttpService {
   private _url = environment.apiUrl;
 
   getTasks() {
-    return this._http.get<Task[]>(`${this._url}`);
+    return this._http.get<Task[]>(`${this._url}/tasks`);
   }
   createTask(task: Task) {
-    return this._http.post<Task[]>(`${this._url}`, { ...task });
+    return this._http.post<Task[]>(`${this._url}/tasks`, { ...task });
   }
 
   updateTask(id: string, task: Task) {
-    return this._http.put(`${this._url}/${id}`, task);
+    return this._http.put(`${this._url}/tasks/${id}`, task);
   }
 
   deleteTask(id: string) {
-    return this._http.delete(`${this._url}/task/${id}`);
+    return this._http.delete(`${this._url}/tasks/${id}`);
   }
 }

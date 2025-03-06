@@ -12,6 +12,8 @@ import { indicate } from '../../../../shared/utils/rxjs.utils';
 import { BehaviorSubject, delay } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AsyncPipe } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-task-form',
@@ -28,12 +30,12 @@ import { AsyncPipe } from '@angular/common';
   ],
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.scss',
-  changeDetection:ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class TaskFormComponent {
   private _tasksHttpService = inject(TasksHttpService);
   public isLoading = new BehaviorSubject(false);
-
+  private _snackBar = inject(MatSnackBar);
   readonly minDate = new Date();
   private _fb = inject(FormBuilder);
   tasksForm = this._fb.group(
@@ -50,8 +52,9 @@ export default class TaskFormComponent {
     const task = this.tasksForm.value;
     this._tasksHttpService
       .createTask(task)
-      .pipe(indicate(this.isLoading), delay(700))
+      .pipe(delay(700), indicate(this.isLoading))
       .subscribe(() => {
+        this._snackBar.open(`${this.tasksForm.get('title')?.value} Created`);
         this.tasksForm.reset();
       });
   }
