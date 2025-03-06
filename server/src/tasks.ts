@@ -1,5 +1,14 @@
-import * as mongodb from 'mongodb';
+import mongoose from 'mongoose';
+const { Schema, model } = mongoose;
 
-export interface Task {
-  _id?: mongodb.ObjectId;
-}
+const taskSchema = new Schema({
+  title: { type: String, required: true },
+  description: { type: String },
+  dueDate: { type: Date },
+  priority: { type: String, enum: ['Low', 'Medium', 'High'], default: 'Low' },
+  status: { type: String, enum: ['Pending', 'Completed'], default: 'Pending' },
+  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // Optional for
+});
+
+const Task = model('Task', taskSchema);
+export { Task };

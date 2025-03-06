@@ -9,3 +9,7 @@ https://github.com/chermdev/conventional-commits-setup?tab=readme-ov-file
 ### Concurrently
 
 https://www.npmjs.com/package/concurrently
+
+
+### Mongoose 
+https://www.mongodb.com/developer/languages/javascript/getting-started-with-mongodb-and-mongoose/
