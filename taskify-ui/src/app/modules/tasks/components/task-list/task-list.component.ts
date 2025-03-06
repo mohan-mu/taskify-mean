@@ -18,6 +18,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Task } from '../../interfaces/tasks';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-task-list',
@@ -32,6 +33,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
     MatButtonModule,
     MatCardModule,
     MatProgressSpinnerModule,
+    RouterLink
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -75,7 +77,9 @@ export default class TaskListComponent implements OnInit {
 
   public deleteTask(id: string = '') {
     return this._tasksHttpService.deleteTask(id).subscribe(() => {
-      this._snackBar.open('Task Deleted');
+      this._snackBar.open('Task Deleted', '', {
+        duration:1400
+      });
       this.fetchTasks();
     });
   }

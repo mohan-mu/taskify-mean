@@ -1,10 +1,14 @@
-import { NgModule } from '@angular/core';
+import { inject, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TasksHttpService } from './services/tasks-http.service';
 
 const routes: Routes = [
   {
     path: 'new',
+    loadComponent: () => import('./components/task-form/task-form.component'),
+  },
+  {
+    path: ':taskId',
     loadComponent: () => import('./components/task-form/task-form.component'),
   },
   {
