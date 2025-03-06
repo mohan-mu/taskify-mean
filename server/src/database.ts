@@ -1,19 +1,22 @@
-import * as mongodb from "mongodb";
-import { Task } from "./tasks";
+import * as mongodb from 'mongodb';
+import { Task } from './tasks';
 
 //TODO: Fix
 export const collections: {
     tasks?: mongodb.Collection<Task>;
 } = {};
 
-export async function connectToDatabase(uri: string) {
+export async function connectToDatabase(
+    uri: string,
+    config: { db: string; collection: string }
+) {
     const client = new mongodb.MongoClient(uri);
     await client.connect();
 
-    const db = client.db("meanStackExample");
+    const db = client.db(config.db);
     await applySchemaValidation(db);
 
-    const employeesCollection = db.collection<Task>("employees");
+    const employeesCollection = db.collection<Task>(config.collection);
     collections.tasks = employeesCollection;
 }
 
@@ -22,36 +25,42 @@ export async function connectToDatabase(uri: string) {
 async function applySchemaValidation(db: mongodb.Db) {
     const jsonSchema = {
         $jsonSchema: {
-            bsonType: "object",
-            required: ["name", "position", "level"],
+            bsonType: 'object',
+            required: ['name', 'position', 'level'],
             additionalProperties: false,
             properties: {
                 _id: {},
                 name: {
-                    bsonType: "string",
-                    description: "'name' is required and is a string",
+                    bsonType: 'string',
+                    description: "'name' is required and is a string"
                 },
                 position: {
-                    bsonType: "string",
+                    bsonType: 'string',
                     description: "'position' is required and is a string",
                     minLength: 5
                 },
                 level: {
-                    bsonType: "string",
-                    description: "'level' is required and is one of 'junior', 'mid', or 'senior'",
-                    enum: ["junior", "mid", "senior"],
-                },
-            },
-        },
+                    bsonType: 'string',
+                    description:
+                        "'level' is required and is one of 'junior', 'mid', or 'senior'",
+                    enum: ['junior', 'mid', 'senior']
+                }
+            }
+        }
     };
 
     // Try applying the modification to the collection, if the collection doesn't exist, create it
-   await db.command({
-        collMod: "employees",
-        validator: jsonSchema
-    }).catch(async (error: mongodb.MongoServerError) => {
-        if (error.codeName === "NamespaceNotFound") {
-            await db.createCollection("employees", {validator: jsonSchema});
-        }
-    });
+    await db
+        .command({
+            collMod: 'employees',
+            validator: jsonSchema
+        })
+        .catch(async (error: mongodb.MongoServerError) => {
+            if (error.codeName === 'NamespaceNotFound') {
+                await db.createCollection('employees', {
+                    validator: jsonSchema
+                });
+            }
+        });
 }
+

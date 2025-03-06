@@ -1,7 +1,13 @@
 {
+  "scripts": {
+    "server-standalone": "npx ts-node server/src/server.ts",
+    "ui-standalone": "cd ./taskify-ui/ && ng serve",
+    "start": "concurrently \"npm run server-standalone\" \" npm run ui-standalone\""
+  },
   "devDependencies": {
     "@commitlint/cli": "^19.7.1",
     "@commitlint/config-conventional": "^19.7.1",
+    "concurrently": "^9.1.2",
     "husky": "^9.1.7"
   }
 }
