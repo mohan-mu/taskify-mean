@@ -13,3 +13,9 @@ https://www.npmjs.com/package/concurrently
 
 ### Mongoose 
 https://www.mongodb.com/developer/languages/javascript/getting-started-with-mongodb-and-mongoose/
+
+
+### UI 
+
+https://medium.com/netanelbasal/binding-router-information-to-routed-component-inputs-in-angular-78ee92f63e64
+
