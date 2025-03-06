@@ -1,0 +1,47 @@
+@use '@angular/material' as mat;
+
+:host {
+  @include mat.sidenav-overrides(
+    (
+      container-divider-color: #ddd,
+    )
+  );
+  .sidenav-container {
+    height: 100%;
+  }
+  .m-left-auto {
+    margin-left: auto;
+  }
+
+  .full-width {
+    width: 100%;
+  }
+  .branding {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: center;
+    .logo {
+      width: 150px;
+    }
+  }
+  .sidenav {
+    width: 200px;
+    padding: 1rem;
+  }
+
+  .active-link {
+    background-color: #ddd;
+  }
+  .content-wrapper {
+    margin: 1rem;
+  }
+
+  .flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
