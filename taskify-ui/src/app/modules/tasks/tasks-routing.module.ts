@@ -21,6 +21,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers:[TasksHttpService]
+  providers: [TasksHttpService],
 })
 export class TasksRoutingModule {}

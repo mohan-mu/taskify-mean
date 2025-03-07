@@ -51,7 +51,7 @@ export default class TaskFormComponent implements OnInit {
       dueDate: [new Date()],
       priority: [TaskPriority.Low],
       status: [TaskStatus.Pending],
-      _id: [{disabled:true,value:''}],
+      _id: [{ disabled: true, value: '' }],
     },
     { nonNullable: true }
   );
@@ -71,7 +71,6 @@ export default class TaskFormComponent implements OnInit {
     return this.taskId !== undefined;
   }
 
-
   onSubmit(): void {
     const task = this.tasksForm.value;
     iif(
@@ -82,7 +81,7 @@ export default class TaskFormComponent implements OnInit {
       .pipe(delay(700), indicate(this.isLoading))
       .subscribe(() => {
         this._snackBar.open(
-          `${this.tasksForm.get('title')?.value} ${ this.isEdit? 'Updated' : 'Created'}`,
+          `${this.tasksForm.get('title')?.value} ${this.isEdit ? 'Updated' : 'Created'}`,
           '',
           {
             duration: 1400,

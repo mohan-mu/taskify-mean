@@ -1,5 +1,5 @@
 import { TasksHttpService } from './../../services/tasks-http.service';
-import { AsyncPipe, DatePipe } from "@angular/common";
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   ChangeDetectionStrategy,
@@ -21,7 +21,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Task, TaskStatus } from '../../interfaces/tasks';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import {MatCheckboxChange, MatCheckboxModule} from '@angular/material/checkbox';
+import {
+  MatCheckboxChange,
+  MatCheckboxModule,
+} from '@angular/material/checkbox';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -43,7 +46,7 @@ import { MatSelectModule } from '@angular/material/select';
     DatePipe,
     MatCheckboxModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -53,7 +56,7 @@ export default class TaskListComponent implements OnInit {
   public cols = 5;
   public tasks: Task[] = [];
 
-  public readonly taskStatus = TaskStatus
+  public readonly taskStatus = TaskStatus;
 
   private _gridByBreakpoint = {
     lg: 5,
@@ -63,14 +66,16 @@ export default class TaskListComponent implements OnInit {
   private breakpointObserver = inject(BreakpointObserver);
   private _snackBar = inject(MatSnackBar);
   private _cdr = inject(ChangeDetectorRef);
-  private _destroyRef = inject(DestroyRef)
+  private _destroyRef = inject(DestroyRef);
 
   private _tasksHttpService = inject(TasksHttpService);
 
   ngOnInit(): void {
-    this.route.queryParams.pipe(takeUntilDestroyed(this._destroyRef)).subscribe(params => {
-      this.fetchTasks(params);
-    });
+    this.route.queryParams
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe(params => {
+        this.fetchTasks(params);
+      });
 
     this.breakpointObserver
       .observe([Breakpoints.XSmall, Breakpoints.Medium, Breakpoints.Large])
@@ -123,14 +128,16 @@ export default class TaskListComponent implements OnInit {
    * @returns void
    * @description Mark a task status
    * */
-  public changeStatus({checked}: MatCheckboxChange, task: Task) {
-    console.log('task', task,checked);
+  public changeStatus({ checked }: MatCheckboxChange, task: Task) {
+    console.log('task', task, checked);
     const status = checked ? TaskStatus.Completed : TaskStatus.Pending;
-    this._tasksHttpService.updateTask(task?._id, {...task, status}).subscribe(() => {
-      this._snackBar.open('Task Updated', '', {
-        duration: 1400,
+    this._tasksHttpService
+      .updateTask(task?._id, { ...task, status })
+      .subscribe(() => {
+        this._snackBar.open('Task Updated', '', {
+          duration: 1400,
+        });
+        this.fetchTasks();
       });
-      this.fetchTasks();
-    });
   }
 }

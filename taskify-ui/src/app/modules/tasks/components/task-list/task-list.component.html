@@ -43,18 +43,17 @@
                 </mat-menu>
               </mat-card-header>
               <mat-card-content>
-                <div> {{ task.dueDate | date }} |  {{ task.priority}}</div>
+                <div>{{ task.dueDate | date }} | {{ task.priority }}</div>
                 <br />
                 {{ task.description }}
               </mat-card-content>
               <mat-card-footer>
                 <mat-checkbox
-                class="example-margin"
-                [checked]="task.status == taskStatus.Completed"
-                (change)="changeStatus($event,task)"
-              >
-                {{task.status}}
-              </mat-checkbox>
+                  class="example-margin"
+                  [checked]="task.status == taskStatus.Completed"
+                  (change)="changeStatus($event, task)">
+                  {{ task.status }}
+                </mat-checkbox>
               </mat-card-footer>
             </mat-card>
           </mat-grid-tile>

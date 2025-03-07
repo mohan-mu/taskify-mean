@@ -4,9 +4,9 @@ import { Task } from './tasks';
 export const taskifyRouter = express.Router();
 taskifyRouter.use(express.json());
 
-taskifyRouter.get('/tasks', async (_req, res) => { 
+taskifyRouter.get('/tasks', async (_req, res) => {
   try {
-    const params= _req.query;
+    const params = _req.query;
     Task.find(params).then(
       data => {
         res.status(200).json([...data]);
@@ -25,7 +25,7 @@ taskifyRouter.get('/tasks/:id', async (req, res) => {
     const id = req?.params?.id;
     Task.findById(id).then(
       data => {
-        res.status(200).json({data});
+        res.status(200).json({ data });
       },
       error => res.status(400).json({ error })
     );

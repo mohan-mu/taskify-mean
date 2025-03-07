@@ -25,10 +25,11 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
     RouterLink,
     RouterLinkActive,
   ],
-  changeDetection:ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class NavigationToolbarComponent {
   readonly sideNavItems: { title: string; param: any }[] = [
+    // TODO : Add more items here
     // { title: "Today's Tasks", param: { dueDate: 'today' } },
     { title: 'All Tasks', param: {} },
     { title: 'Important Tasks', param: { priority: 'High' } },
