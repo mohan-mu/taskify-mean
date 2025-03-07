@@ -1,8 +1,8 @@
 import * as express from 'express';
-import { Task } from './tasks';
+import { Task } from '../schemas/tasks';
 
 export const taskifyRouter = express.Router();
-taskifyRouter.use(express.json());
+taskifyRouter.use(express.json(),);
 
 taskifyRouter.get('/tasks', async (_req, res) => {
   try {

@@ -3,9 +3,10 @@ import express from 'express';
 import cors from 'cors';
 import * as swaggerJson from './swagger/swagger.json';
 import { connectToDatabase } from './database';
-import { taskifyRouter } from './taskify.routes';
+import { taskifyRouter } from './routes/taskify.routes';
 import { serve, setup } from 'swagger-ui-express';
-
+import { authMiddleware } from './middleware/auth.middleware';
+import { authRouter } from './routes/auth.routes';
 // Load environment variables from the .env file, where the ATLAS_URI is configured
 dotenv.config();
 
@@ -28,7 +29,8 @@ connectToDatabase(ATLAS_URI, { db: DB, collection: COLLECTION })
   .then(() => {
     const app = express();
     app.use(cors());
-    app.use(SERVER_ROUTE, taskifyRouter);
+    app.use(SERVER_ROUTE, authMiddleware, taskifyRouter);
+    app.use('/auth', authRouter);
     app.use('/docs', serve, setup(swaggerJson));
 
     // start the Express server
