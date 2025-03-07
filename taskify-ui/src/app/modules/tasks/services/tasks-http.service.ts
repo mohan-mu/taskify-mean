@@ -6,7 +6,7 @@ import { environment } from '../../../../environments/environment';
 @Injectable()
 export class TasksHttpService {
   private _http = inject(HttpClient);
-  private _url = environment.apiUrl;
+  private _url = `${environment.apiUrl}/taskify`;
 
   getTasks(params = {}) {
     return this._http.get<Task[]>(`${this._url}/tasks`, { params });

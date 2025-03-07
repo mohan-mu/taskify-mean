@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { injectHttp } from '../../../shared/utils/common.utils';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-signup',
@@ -29,6 +30,8 @@ export default class SignupComponent {
   });
 
   public onSubmit() {
-    console.log(this.signupForm.value);
+    this._http.post(`${environment.apiUrl}/auth/signup`, this.signupForm.value).subscribe((res) => {
+      alert('User created successfully');
+    });
   }
 }

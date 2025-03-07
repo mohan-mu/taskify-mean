@@ -8,7 +8,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { AUTH_KEY } from '../../constants/constants';
 
 @Component({
   selector: 'app-navigation-toolbar',
@@ -36,12 +37,18 @@ export default class NavigationToolbarComponent {
     { title: 'Completed Tasks', param: { status: 'Completed' } },
     { title: 'Pending Tasks', param: { status: 'Pending' } },
   ];
-  private breakpointObserver = inject(BreakpointObserver);
+  private _breakpointObserver = inject(BreakpointObserver);
 
-  isHandset$: Observable<boolean> = this.breakpointObserver
+  private _router = inject(Router);
+  isHandset$: Observable<boolean> = this._breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
       shareReplay()
-    );
+  );
+
+  logout() {
+    localStorage.removeItem(AUTH_KEY);
+    this._router.navigate(['auth/signin']);
+  }
 }

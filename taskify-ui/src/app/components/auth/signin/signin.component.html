@@ -4,18 +4,18 @@
       <mat-card-title>Sign In</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <form>
+      <form [formGroup]="signinForm">
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
-          <input matInput type="email" required>
+          <input matInput formControlName="email" type="email" required>
         </mat-form-field>
         <br/>
         <mat-form-field appearance="outline">
           <mat-label>Password</mat-label>
-          <input matInput type="password" required>
+          <input matInput formControlName="password" type="password" required>
         </mat-form-field>
         <br/>
-        <button mat-raised-button color="primary" type="submit">Sign In</button>
+        <button [disabled]="signinForm.invalid" mat-raised-button color="primary" type="submit" (click)="onSubmit()">Sign In</button>
       </form>
     </mat-card-content>
   </mat-card>
