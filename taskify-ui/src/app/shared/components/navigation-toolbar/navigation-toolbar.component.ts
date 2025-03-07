@@ -29,7 +29,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 })
 export default class NavigationToolbarComponent {
   readonly sideNavItems: { title: string; param: any }[] = [
-    { title: "Today's Tasks", param: { dueDate: 'today' } },
+    // { title: "Today's Tasks", param: { dueDate: 'today' } },
     { title: 'All Tasks', param: {} },
     { title: 'Important Tasks', param: { priority: 'High' } },
     { title: 'Completed Tasks', param: { status: 'Completed' } },
