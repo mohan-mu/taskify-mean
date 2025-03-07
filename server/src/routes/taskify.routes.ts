@@ -1,13 +1,15 @@
 import * as express from 'express';
 import { Task } from '../schemas/tasks';
+import { AuthenticatedRequest } from './auth.routes';
+import mongoose from 'mongoose';
 
 export const taskifyRouter = express.Router();
-taskifyRouter.use(express.json(),);
+taskifyRouter.use(express.json());
 
-taskifyRouter.get('/tasks', async (_req, res) => {
+taskifyRouter.get('/tasks', async (_req:AuthenticatedRequest, res) => {
   try {
     const params = _req.query;
-    Task.find(params).then(
+    Task.find({ ...params, createdBy:new mongoose.Types.ObjectId(_req.user?._id) }).then(
       data => {
         res.status(200).json([...data]);
       },
@@ -34,9 +36,9 @@ taskifyRouter.get('/tasks/:id', async (req, res) => {
   }
 });
 
-taskifyRouter.post('/tasks', async (req, res) => {
+taskifyRouter.post('/tasks', async (req: AuthenticatedRequest, res) => {
   try {
-    const task = new Task(req.body);
+    const task = new Task({ ...req.body, createdBy: req.user?._id } );
     task.save().then(
       data => {
         res.status(200).json({ data });

@@ -1,7 +1,7 @@
 import * as express from 'express';
 import { User } from '../schemas/user';
 
-interface AuthenticatedRequest extends express.Request {
+export interface AuthenticatedRequest extends express.Request {
   user?: {
     _id: string;
   };

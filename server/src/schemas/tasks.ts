@@ -7,7 +7,7 @@ const taskSchema = new Schema({
   dueDate: { type: Date },
   priority: { type: String, enum: ['Low', 'Medium', 'High'], default: 'Low' },
   status: { type: String, enum: ['Pending', 'Completed'], default: 'Pending' },
-  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // Optional for
+  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'users' }, // Optional for
 });
 
 const Task = model('Task', taskSchema);

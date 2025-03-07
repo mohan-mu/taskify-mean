@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "run-server": "npx ts-node src/server.ts",
+    "dev": "nodemon --watch 'src/**' --ext 'ts,json' --ignore 'src/**/*.spec.ts' --exec 'ts-node src/server.ts'",
     "swagger-autogen": "npx ts-node src/generate-swagger.ts",
     "test": "npx jest"
   },
@@ -31,6 +32,7 @@
     "@types/supertest": "^6.0.2",
     "@types/swagger-ui-express": "^4.1.8",
     "jest": "^29.7.0",
+    "nodemon": "^3.1.9",
     "supertest": "^7.0.0",
     "swagger-autogen": "^2.23.7",
     "ts-jest": "^29.2.6",
