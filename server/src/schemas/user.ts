@@ -20,6 +20,7 @@ interface UserModel extends Model<IUser, {}, IUserMethods> {
     email: string,
     password: string
   ): Promise<HydratedDocument<IUser, IUserMethods>>;
+  removeToken(id: string, tokens: string[]): Promise<void>;
 }
 
 const userSchema = new Schema<IUser, UserModel, IUserMethods>({
@@ -48,6 +49,22 @@ userSchema.methods.generateAuthToken = async function () {
   user.tokens = user.tokens.concat({ token });
   await user.save();
   return token;
+};
+
+userSchema.statics.removeToken = async (id, tokens = []) => {
+  const user = await User.findOne({ _id: id });
+  if (!user) {
+    return null;
+  } else {
+    if (tokens.length === 0) {
+      user.tokens = [];
+    } else {
+      user.tokens = user.tokens.filter(token => {
+        return !tokens.includes(token.token);
+      });
+    }
+    await user.save();
+  }
 };
 
 userSchema.statics.findByCredentials = async (email, password) => {
