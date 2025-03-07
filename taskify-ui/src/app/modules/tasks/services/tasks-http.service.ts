@@ -8,8 +8,8 @@ export class TasksHttpService {
   private _http = inject(HttpClient);
   private _url = environment.apiUrl;
 
-  getTasks() {
-    return this._http.get<Task[]>(`${this._url}/tasks`);
+  getTasks(params={}) {
+    return this._http.get<Task[]>(`${this._url}/tasks`,{params});
   }
   createTask(task: Task) {
     return this._http.post<Task[]>(`${this._url}/tasks`, { ...task });

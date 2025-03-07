@@ -1,9 +1,11 @@
 import { TasksHttpService } from './../../services/tasks-http.service';
 import { AsyncPipe, DatePipe } from "@angular/common";
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
   inject,
   OnInit,
 } from '@angular/core';
@@ -18,8 +20,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Task, TaskStatus } from '../../interfaces/tasks';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import {MatCheckboxChange, MatCheckboxModule} from '@angular/material/checkbox';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-task-list',
@@ -36,12 +41,15 @@ import {MatCheckboxChange, MatCheckboxModule} from '@angular/material/checkbox';
     MatProgressSpinnerModule,
     RouterLink,
     DatePipe,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatInputModule,
+    MatSelectModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class TaskListComponent implements OnInit {
   public isLoading = new BehaviorSubject(false);
+  private route = inject(ActivatedRoute);
   public cols = 5;
   public tasks: Task[] = [];
 
@@ -50,15 +58,20 @@ export default class TaskListComponent implements OnInit {
   private _gridByBreakpoint = {
     lg: 5,
     md: 4,
-    xs: 2,
+    xs: 1,
   };
   private breakpointObserver = inject(BreakpointObserver);
   private _snackBar = inject(MatSnackBar);
   private _cdr = inject(ChangeDetectorRef);
+  private _destroyRef = inject(DestroyRef)
+
   private _tasksHttpService = inject(TasksHttpService);
 
   ngOnInit(): void {
-    this.fetchTasks();
+    this.route.queryParams.pipe(takeUntilDestroyed(this._destroyRef)).subscribe(params => {
+      this.fetchTasks(params);
+    });
+
     this.breakpointObserver
       .observe([Breakpoints.XSmall, Breakpoints.Medium, Breakpoints.Large])
       .subscribe(result => {
@@ -95,9 +108,9 @@ export default class TaskListComponent implements OnInit {
    * @returns void
    * @description Fetch all tasks
    * */
-  public fetchTasks() {
+  public fetchTasks(params = {}) {
     this._tasksHttpService
-      .getTasks()
+      .getTasks(params)
       .pipe(delay(700), indicate(this.isLoading))
       .subscribe(data => {
         this.tasks = data;

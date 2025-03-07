@@ -4,9 +4,10 @@ import { Task } from './tasks';
 export const taskifyRouter = express.Router();
 taskifyRouter.use(express.json());
 
-taskifyRouter.get('/tasks', async (_req, res) => {
+taskifyRouter.get('/tasks', async (_req, res) => { 
   try {
-    Task.find({}).then(
+    const params= _req.query;
+    Task.find(params).then(
       data => {
         res.status(200).json([...data]);
       },

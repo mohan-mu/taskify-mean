@@ -4,13 +4,27 @@
     <mat-spinner></mat-spinner>
   } @else {
     @if (tasks.length > 0) {
+      <!-- <div class="task-filters">
+        <mat-form-field appearance="outline">
+          <mat-label>Search Task</mat-label>
+          <input matInput  >
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Sort By</mat-label>
+          <mat-select>
+            <mat-option  [value]="'d'">Due Date</mat-option>
+            <mat-option [value]="'p'">Priority</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div> -->
       <mat-grid-list [cols]="cols" gutterSize="16" rowHeight="1:1">
         @for (task of tasks; track task) {
           <mat-grid-tile>
             <mat-card appearance="outlined" class="task-card">
               <mat-card-header>
                 <mat-card-title-group>
-                  <mat-card-subtitle>{{ task.title }}</mat-card-subtitle>
+                  <mat-card-title>{{ task.title }}</mat-card-title>
                 </mat-card-title-group>
                 <button
                   mat-icon-button
