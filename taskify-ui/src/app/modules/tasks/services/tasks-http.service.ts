@@ -19,7 +19,7 @@ export class TasksHttpService {
     return this._http.get<{ data: Task }>(`${this._url}/tasks/${id}`);
   }
 
-  updateTask(id: string, task: Task) {
+  updateTask(id: string='', task: Task) {
     return this._http.put(`${this._url}/tasks/${id}`, task);
   }
 

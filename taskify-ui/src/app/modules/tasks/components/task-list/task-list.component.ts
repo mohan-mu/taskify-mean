@@ -1,5 +1,5 @@
 import { TasksHttpService } from './../../services/tasks-http.service';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from "@angular/common";
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -16,9 +16,10 @@ import { BehaviorSubject, delay, map } from 'rxjs';
 import { indicate } from '../../../../shared/utils/rxjs.utils';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Task } from '../../interfaces/tasks';
+import { Task, TaskStatus } from '../../interfaces/tasks';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { RouterLink } from '@angular/router';
+import {MatCheckboxChange, MatCheckboxModule} from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-task-list',
@@ -33,20 +34,24 @@ import { RouterLink } from '@angular/router';
     MatButtonModule,
     MatCardModule,
     MatProgressSpinnerModule,
-    RouterLink
+    RouterLink,
+    DatePipe,
+    MatCheckboxModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class TaskListComponent implements OnInit {
   public isLoading = new BehaviorSubject(false);
-  public cols = 6;
+  public cols = 5;
   public tasks: Task[] = [];
-  gridByBreakpoint = {
-    lg: 6,
-    md: 5,
-    xs: 2
-  }
 
+  public readonly taskStatus = TaskStatus
+
+  private _gridByBreakpoint = {
+    lg: 5,
+    md: 4,
+    xs: 2,
+  };
   private breakpointObserver = inject(BreakpointObserver);
   private _snackBar = inject(MatSnackBar);
   private _cdr = inject(ChangeDetectorRef);
@@ -54,36 +59,42 @@ export default class TaskListComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchTasks();
-    this.breakpointObserver.observe([
-      Breakpoints.XSmall,
-      Breakpoints.Medium,
-      Breakpoints.Large,
-    ]).subscribe(result => {
-      if (result.matches) {
-        if (result.breakpoints[Breakpoints.XSmall]) {
-          this.cols = this.gridByBreakpoint.xs;
+    this.breakpointObserver
+      .observe([Breakpoints.XSmall, Breakpoints.Medium, Breakpoints.Large])
+      .subscribe(result => {
+        if (result.matches) {
+          if (result.breakpoints[Breakpoints.XSmall]) {
+            this.cols = this._gridByBreakpoint.xs;
+          }
+          if (result.breakpoints[Breakpoints.Medium]) {
+            this.cols = this._gridByBreakpoint.md;
+          }
+          if (result.breakpoints[Breakpoints.Large]) {
+            this.cols = this._gridByBreakpoint.lg;
+          }
         }
-        if (result.breakpoints[Breakpoints.Medium]) {
-          this.cols = this.gridByBreakpoint.md;
-        }
-        if (result.breakpoints[Breakpoints.Large]) {
-          this.cols = this.gridByBreakpoint.lg;
-        }
-
-      }
-      this._cdr.markForCheck()
-    });
+        this._cdr.markForCheck();
+      });
   }
 
+  /*
+   * @param id
+   * @returns void
+   * @description Delete a task
+   * */
   public deleteTask(id: string = '') {
     return this._tasksHttpService.deleteTask(id).subscribe(() => {
       this._snackBar.open('Task Deleted', '', {
-        duration:1400
+        duration: 1400,
       });
       this.fetchTasks();
     });
   }
 
+  /*
+   * @returns void
+   * @description Fetch all tasks
+   * */
   public fetchTasks() {
     this._tasksHttpService
       .getTasks()
@@ -92,5 +103,21 @@ export default class TaskListComponent implements OnInit {
         this.tasks = data;
         this._cdr.markForCheck();
       });
+  }
+
+  /*
+   * @param task
+   * @returns void
+   * @description Mark a task status
+   * */
+  public changeStatus({checked}: MatCheckboxChange, task: Task) {
+    console.log('task', task,checked);
+    const status = checked ? TaskStatus.Completed : TaskStatus.Pending;
+    this._tasksHttpService.updateTask(task?._id, {...task, status}).subscribe(() => {
+      this._snackBar.open('Task Updated', '', {
+        duration: 1400,
+      });
+      this.fetchTasks();
+    });
   }
 }

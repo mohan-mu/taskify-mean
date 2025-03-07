@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 const { Schema, model } = mongoose;
 
 const taskSchema = new Schema({
-  title: { type: String, required: true },
+  title: { type: String, required: true ,unique:true},
   description: { type: String },
   dueDate: { type: Date },
   priority: { type: String, enum: ['Low', 'Medium', 'High'], default: 'Low' },

@@ -88,7 +88,13 @@ export default class TaskFormComponent implements OnInit {
             duration: 1400,
           }
         );
-        this.tasksForm.reset();
+        this.tasksForm.reset({
+          title: '',
+          description: '',
+          dueDate: new Date(),
+          priority: TaskPriority.Low,
+          status: TaskStatus.Pending,
+        });
       });
   }
 }

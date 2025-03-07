@@ -44,7 +44,7 @@ taskifyRouter.post('/tasks', async (req, res) => {
     );
   } catch (error) {
     res
-      .status(400)
+      .status(500)
       .send(error instanceof Error ? error.message : 'Unknown error');
   }
 });
@@ -62,7 +62,7 @@ taskifyRouter.put('/tasks/:id', async (req, res) => {
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error';
     console.error(message);
-    res.status(400).send(message);
+    res.status(500).send(message);
   }
 });
 
@@ -78,6 +78,6 @@ taskifyRouter.delete('/tasks/:id', async (req, res) => {
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error';
     console.error(message);
-    res.status(400).send(message);
+    res.status(500).send(message);
   }
 });

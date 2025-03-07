@@ -6,7 +6,9 @@
     "components": {
       "schemas": {
         "title": "Task",
-        "required": ["title"],
+        "required": [
+          "title"
+        ],
         "properties": {
           "title": {
             "type": "string"
@@ -20,11 +22,15 @@
           },
           "priority": {
             "type": "string",
-            "enum": [null]
+            "enum": [
+              null
+            ]
           },
           "status": {
             "type": "string",
-            "enum": [null]
+            "enum": [
+              null
+            ]
           },
           "createdBy": {
             "type": "schemaobjectid"
@@ -39,12 +45,20 @@
   },
   "host": "localhost:3000",
   "basePath": "/",
-  "schemes": ["http"],
+  "schemes": [
+    "http"
+  ],
   "paths": {
-    "/": {
+    "/tasks": {
       "get": {
         "description": "",
         "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -53,31 +67,20 @@
       "post": {
         "description": "",
         "responses": {
+          "200": {
+            "description": "OK"
+          },
           "400": {
             "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
-    "/{id}": {
+    "/tasks/{id}": {
       "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "put": {
-        "tags": ["someTag"],
         "description": "",
         "parameters": [
           {
@@ -89,24 +92,37 @@
         ],
         "responses": {
           "200": {
-            "description": "Some description...",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Task"
-                }
-              }
-            }
+            "description": "OK"
           },
           "400": {
             "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
           }
-        },
-        "security": [
+        }
+      },
+      "put": {
+        "description": "",
+        "parameters": [
           {
-            "apiKeyAuth": []
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
           }
-        ]
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
       },
       "delete": {
         "description": "",
@@ -119,8 +135,14 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "OK"
+          },
           "400": {
             "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
