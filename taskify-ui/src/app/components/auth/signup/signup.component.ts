@@ -1,11 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { injectHttp } from '../../../shared/utils/common.utils';
 
 @Component({
   selector: 'app-signup',
-  imports: [],
+  imports: [
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+  ],
+  standalone: true,
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.scss'
+  styleUrl: './signup.component.scss',
 })
 export default class SignupComponent {
+  private _fb = inject(FormBuilder);
+  private _http = injectHttp()
+  public signupForm = this._fb.group({
+    name: ['', Validators.required],
+    email: ['', [Validators.required,Validators.email]],
+    password: ['',Validators.required],
+  });
 
+  public onSubmit() {
+    console.log(this.signupForm.value);
+  }
 }
