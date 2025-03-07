@@ -6,9 +6,7 @@
     "components": {
       "schemas": {
         "title": "Task",
-        "required": [
-          "title"
-        ],
+        "required": ["title"],
         "properties": {
           "title": {
             "type": "string"
@@ -22,15 +20,11 @@
           },
           "priority": {
             "type": "string",
-            "enum": [
-              null
-            ]
+            "enum": [null]
           },
           "status": {
             "type": "string",
-            "enum": [
-              null
-            ]
+            "enum": [null]
           },
           "createdBy": {
             "type": "schemaobjectid"
@@ -45,9 +39,7 @@
   },
   "host": "localhost:3000",
   "basePath": "/",
-  "schemes": [
-    "http"
-  ],
+  "schemes": ["http"],
   "paths": {
     "/signup": {
       "post": {

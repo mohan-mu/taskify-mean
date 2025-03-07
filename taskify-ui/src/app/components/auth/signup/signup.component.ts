@@ -22,16 +22,18 @@ import { environment } from '../../../../environments/environment';
 })
 export default class SignupComponent {
   private _fb = inject(FormBuilder);
-  private _http = injectHttp()
+  private _http = injectHttp();
   public signupForm = this._fb.group({
     name: ['', Validators.required],
-    email: ['', [Validators.required,Validators.email]],
-    password: ['',Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required],
   });
 
   public onSubmit() {
-    this._http.post(`${environment.apiUrl}/auth/signup`, this.signupForm.value).subscribe((res) => {
-      alert('User created successfully');
-    });
+    this._http
+      .post(`${environment.apiUrl}/auth/signup`, this.signupForm.value)
+      .subscribe(res => {
+        alert('User created successfully');
+      });
   }
 }

@@ -1,7 +1,5 @@
 import { inject } from '@angular/core';
-import {
-  HttpInterceptorFn,
-} from '@angular/common/http';
+import { HttpInterceptorFn } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AUTH_KEY } from '../shared/constants/constants';

@@ -5,23 +5,30 @@
       <form [formGroup]="signupForm">
         <mat-form-field appearance="outline">
           <mat-label>Name</mat-label>
-          <input matInput formControlName="name" required>
+          <input matInput formControlName="name" required />
         </mat-form-field>
-        <br/>
+        <br />
 
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
-          <input matInput formControlName="email" type="email" required>
+          <input matInput formControlName="email" type="email" required />
         </mat-form-field>
-        <br/>
+        <br />
 
         <mat-form-field appearance="outline">
           <mat-label>Password</mat-label>
-          <input matInput formControlName="password" type="password" required>
+          <input matInput formControlName="password" type="password" required />
         </mat-form-field>
-        <br/>
+        <br />
 
-        <button mat-raised-button (click)="onSubmit()" [disabled]="signupForm.invalid" color="primary" type="submit">Sign Up</button>
+        <button
+          mat-raised-button
+          (click)="onSubmit()"
+          [disabled]="signupForm.invalid"
+          color="primary"
+          type="submit">
+          Sign Up
+        </button>
       </form>
     </mat-card-content>
   </mat-card>

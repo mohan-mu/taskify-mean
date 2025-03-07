@@ -8,7 +8,12 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import {
+  Router,
+  RouterLink,
+  RouterLinkActive,
+  RouterOutlet,
+} from '@angular/router';
 import { AUTH_KEY } from '../../constants/constants';
 
 @Component({
@@ -45,7 +50,7 @@ export default class NavigationToolbarComponent {
     .pipe(
       map(result => result.matches),
       shareReplay()
-  );
+    );
 
   logout() {
     localStorage.removeItem(AUTH_KEY);

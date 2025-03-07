@@ -7,15 +7,22 @@
       <form [formGroup]="signinForm">
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
-          <input matInput formControlName="email" type="email" required>
+          <input matInput formControlName="email" type="email" required />
         </mat-form-field>
-        <br/>
+        <br />
         <mat-form-field appearance="outline">
           <mat-label>Password</mat-label>
-          <input matInput formControlName="password" type="password" required>
+          <input matInput formControlName="password" type="password" required />
         </mat-form-field>
-        <br/>
-        <button [disabled]="signinForm.invalid" mat-raised-button color="primary" type="submit" (click)="onSubmit()">Sign In</button>
+        <br />
+        <button
+          [disabled]="signinForm.invalid"
+          mat-raised-button
+          color="primary"
+          type="submit"
+          (click)="onSubmit()">
+          Sign In
+        </button>
       </form>
     </mat-card-content>
   </mat-card>

@@ -11,7 +11,7 @@ import { AUTH_KEY } from './shared/constants/constants';
 const canActivateTeam: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
-):boolean => {
+): boolean => {
   if (localStorage.getItem(AUTH_KEY)) {
     return true;
   }
@@ -36,13 +36,11 @@ export const routes: Routes = [
   },
   {
     path: 'auth/signin',
-    loadComponent: () =>
-      import('./components/auth/signin/signin.component'),
+    loadComponent: () => import('./components/auth/signin/signin.component'),
   },
   {
     path: 'auth/signup',
-    loadComponent: () =>
-      import('./components/auth/signup/signup.component'),
+    loadComponent: () => import('./components/auth/signup/signup.component'),
   },
   {
     path: '**',
@@ -50,4 +48,3 @@ export const routes: Routes = [
       import('./shared/components/page-not-found/page-not-found.component'),
   },
 ];
-
