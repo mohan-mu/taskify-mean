@@ -11,6 +11,21 @@ export const authRouter = express.Router();
 authRouter.use(express.json());
 
 authRouter.post('/signup', async (req, res) => {
+  // #swagger.tags = ['Auth']
+  //#swagger.path = '/auth/signup'
+  /*
+   #swagger.requestBody: {
+    "description": "Optional description in *Markdown*",
+    "required": true,
+    "content": {
+      "application/json": {
+        "schema": {
+          "$ref": "#/components/schemas/user"
+        }
+      }
+    }
+  }
+  */
   try {
     const user = new User(req.body);
     user.save().then(
@@ -27,6 +42,8 @@ authRouter.post('/signup', async (req, res) => {
 });
 
 authRouter.post('/signin', async (req, res) => {
+  // #swagger.tags = ['Auth']
+  //#swagger.path = '/auth/signin'
   try {
     const email = req.body.email;
     const password = req.body.password;
@@ -47,6 +64,9 @@ authRouter.post('/signin', async (req, res) => {
 });
 
 authRouter.get('/logout', async (req: AuthenticatedRequest, res) => {
+  // #swagger.tags = ['Auth']
+  //#swagger.path = '/auth/logout'
+  // #swagger.security = [{Bearer: []}]
   try {
     if (req.user) {
       const authHeader = req.header('Authorization');
@@ -63,6 +83,9 @@ authRouter.get('/logout', async (req: AuthenticatedRequest, res) => {
 });
 
 authRouter.get('/logoutAll', async (req: AuthenticatedRequest, res) => {
+  // #swagger.tags = ['Auth']
+  //#swagger.path = '/auth/logoutAll'
+  // #swagger.security = [{Bearer: []}]
   try {
     if (req.user) {
       const user = await User.removeToken(req.user._id, []);

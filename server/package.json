@@ -5,6 +5,7 @@
   "scripts": {
     "run-server": "npx ts-node src/server.ts",
     "dev": "nodemon --watch 'src/**' --ext 'ts,json' --ignore 'src/**/*.spec.ts' --exec 'ts-node src/server.ts'",
+    "monitor-swagger":"nodemon --watch 'src/**' --ext 'ts,json' --ignore 'src/**/*.json' --exec 'npx ts-node src/generate-swagger.ts && ts-node src/server.ts'",
     "swagger-autogen": "npx ts-node src/generate-swagger.ts",
     "test": "npx jest"
   },

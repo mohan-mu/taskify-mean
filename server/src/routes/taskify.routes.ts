@@ -2,13 +2,19 @@ import * as express from 'express';
 import { Task } from '../schemas/tasks';
 import { AuthenticatedRequest } from './auth.routes';
 import mongoose from 'mongoose';
+import { processDateString } from '../utils/utils';
 
 export const taskifyRouter = express.Router();
 taskifyRouter.use(express.json());
-
 taskifyRouter.get('/tasks', async (_req: AuthenticatedRequest, res) => {
+  // #swagger.tags = ['Task']
+  //#swagger.path = '/taskify/tasks'
+  // #swagger.security = [{Bearer: []}]
   try {
     const params = _req.query;
+    if (params?.dueDate) {
+      params.dueDate = processDateString(params.dueDate);
+    }
     Task.find({
       ...params,
       createdBy: new mongoose.Types.ObjectId(_req.user?._id),
@@ -26,6 +32,9 @@ taskifyRouter.get('/tasks', async (_req: AuthenticatedRequest, res) => {
 });
 
 taskifyRouter.get('/tasks/:id', async (req, res) => {
+  // #swagger.tags = ['Task']
+  //#swagger.path = '/tasks/{id}'
+  // #swagger.security = [{Bearer: []}]
   try {
     const id = req?.params?.id;
     Task.findById(id).then(
@@ -40,6 +49,22 @@ taskifyRouter.get('/tasks/:id', async (req, res) => {
 });
 
 taskifyRouter.post('/tasks', async (req: AuthenticatedRequest, res) => {
+  // #swagger.tags = ['Task']
+  //#swagger.path = '/tasks'
+  // #swagger.security = [{Bearer: []}]
+  /*
+   #swagger.requestBody: {
+    "description": "Optional description in *Markdown*",
+    "required": true,
+    "content": {
+      "application/json": {
+        "schema": {
+          "$ref": "#/components/schemas/task"
+        }
+      }
+    }
+  }
+  */
   try {
     const task = new Task({ ...req.body, createdBy: req.user?._id });
     task.save().then(
@@ -56,6 +81,22 @@ taskifyRouter.post('/tasks', async (req: AuthenticatedRequest, res) => {
 });
 
 taskifyRouter.put('/tasks/:id', async (req, res) => {
+  // #swagger.tags = ['Task']
+  //#swagger.path = 'tasks/{id}'
+    // #swagger.security = [{Bearer: []}]
+    /*
+   #swagger.requestBody: {
+    "description": "Optional description in *Markdown*",
+    "required": true,
+    "content": {
+      "application/json": {
+        "schema": {
+          "$ref": "#/components/schemas/task"
+        }
+      }
+    }
+  }
+  */
   try {
     const id = req?.params?.id;
     const update = req.body;
@@ -73,6 +114,10 @@ taskifyRouter.put('/tasks/:id', async (req, res) => {
 });
 
 taskifyRouter.delete('/tasks/:id', async (req, res) => {
+  //# swagger.auto=false
+  // #swagger.tags = ['Task']
+  //#swagger.path = '/tasks/{id}'
+  // #swagger.security = [{Bearer: []}]
   try {
     const id = req?.params?.id;
     Task.findByIdAndDelete(id).then(

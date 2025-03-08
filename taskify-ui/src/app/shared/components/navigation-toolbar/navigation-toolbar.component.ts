@@ -35,8 +35,7 @@ import { AUTH_KEY } from '../../constants/constants';
 })
 export default class NavigationToolbarComponent {
   readonly sideNavItems: { title: string; param: any }[] = [
-    // TODO : Add more items here
-    // { title: "Today's Tasks", param: { dueDate: 'today' } },
+    { title: "Today's Tasks", param: { dueDate: new Date().toISOString().slice(0,10)}  },
     { title: 'All Tasks', param: {} },
     { title: 'Important Tasks', param: { priority: 'High' } },
     { title: 'Completed Tasks', param: { status: 'Completed' } },

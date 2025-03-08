@@ -5,21 +5,45 @@ const doc = {
     title: 'Taskify',
     description: 'Taskify API',
     components: {
-      schemas: {
-        title: 'Task',
-        required: ['title'],
-        properties: {
-          title: { type: 'string' },
-          description: { type: 'string' },
-          dueDate: { type: 'string', format: 'date-time' },
-          priority: { type: 'string', enum: [Array] },
-          status: { type: 'string', enum: [Array] },
-          createdBy: { type: 'schemaobjectid' },
-          _id: { type: 'string' },
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'jwt',
         },
       },
     },
   },
+  components: {
+    schemas: {
+        task: {
+            title: 'string' ,
+            description: 'string' ,
+            dueDate: 'string',
+            priority: 'string',
+            status: 'string'
+      },
+      user: {
+        name: 'string' ,
+        email: 'string' ,
+        password: 'string'
+  }
+    }
+  },
+  securityDefinitions: {
+    Bearer: {
+      type: 'apiKey',
+      name: 'Authorization',
+      in: 'header',
+      description:
+        ' Enter the token with the`Bearer: ` prefix, e.g. "Bearer abcde12345"',
+    },
+  },
+  servers: [
+    {
+      url: 'http://localhost:5200',
+    },
+  ],
 };
 
 const outputFile = './swagger/swagger.json';
@@ -28,4 +52,4 @@ const routes = [
   './src/routes/taskify.routes.ts',
 ];
 
-swaggerAutogen()(outputFile, routes, doc);
+swaggerAutogen({ openapi: '3.0.0' })(outputFile, routes, doc);
