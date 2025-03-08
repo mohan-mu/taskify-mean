@@ -73,7 +73,7 @@
     <mat-card-actions>
       <button
         mat-raised-button
-        [disabled]="(isLoading | async) || tasksForm.invalid"
+        [disabled]="tasksForm.invalid||(isLoading | async)"
         (click)="onSubmit()"
         color="primary"
         type="submit">

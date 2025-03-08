@@ -156,6 +156,29 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "priority",
+            "in": "query",
+            "schema": {
+              "type": "enum",
+              "enum": [
+                "High",
+                "Low",
+                "Medium"
+              ]
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "enum",
+              "enum": [
+                "Pending",
+                "Completed"
+              ]
+            }
           }
         ],
         "responses": {
@@ -180,16 +203,6 @@
           "Task"
         ],
         "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK"
