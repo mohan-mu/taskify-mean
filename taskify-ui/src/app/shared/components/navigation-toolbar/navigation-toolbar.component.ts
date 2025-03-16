@@ -31,6 +31,7 @@ import { AUTH_KEY } from '../../constants/constants';
     RouterLink,
     RouterLinkActive,
   ],
+  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class NavigationToolbarComponent {

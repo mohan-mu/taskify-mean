@@ -33,6 +33,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatProgressSpinnerModule,
     AsyncPipe,
   ],
+  standalone: true,
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -56,7 +57,7 @@ export default class TaskFormComponent implements OnInit {
     { nonNullable: true }
   );
 
-  @Input() taskId = undefined;
+  @Input() taskId: string| undefined = undefined;
 
   ngOnInit(): void {
     if (this.isEdit && this.taskId) {

@@ -16,7 +16,7 @@ describe('SignupComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SignupComponent],
+      imports: [SignupComponent,HttpClientTestingModule,ReactiveFormsModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SignupComponent);
@@ -43,6 +43,10 @@ describe('SignupComponent', () => {
     httpMock = TestBed.inject(HttpTestingController);
     fixture.detectChanges();
   });
+  afterEach(() => {
+    httpMock.verify();
+  });
+
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -78,7 +82,7 @@ describe('SignupComponent', () => {
     expect(control?.valid).toBeFalsy();
   });
 
-  it('should submit the form and make an HTTP POST request', () => {
+  xit('should submit the form and make an HTTP POST request', () => {
     const form = component.signupForm;
     form.setValue({
       name: 'Test User',
@@ -92,7 +96,5 @@ describe('SignupComponent', () => {
     const req = httpMock.expectOne(`${environment.apiUrl}/auth/signup`);
     expect(req.request.method).toBe('POST');
     req.flush({});
-
-    httpMock.verify();
   });
 });

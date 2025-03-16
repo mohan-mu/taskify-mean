@@ -6,13 +6,13 @@ import { Router } from '@angular/router';
 import { environment } from '../../../../environments/environment';
 import { AUTH_KEY } from '../../../shared/constants/constants';
 import SigninComponent from './signin.component';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideHttpClient } from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+
 
 describe('SigninComponent', () => {
   let component: SigninComponent;
   let fixture: ComponentFixture<SigninComponent>;
-  let httpMock: any;
+  let httpMock: HttpTestingController;
   let debugElement: DebugElement;
 
   beforeEach(async () => {
@@ -20,13 +20,13 @@ describe('SigninComponent', () => {
       imports: [
         SigninComponent,
         ReactiveFormsModule,
-        provideHttpClientTesting(),
-        provideHttpClient(),
+        HttpClientTestingModule, 
       ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SigninComponent);
     component = fixture.componentInstance;
+    httpMock = TestBed.inject(HttpTestingController);
     fixture.detectChanges();
     debugElement = fixture.debugElement;
   });
