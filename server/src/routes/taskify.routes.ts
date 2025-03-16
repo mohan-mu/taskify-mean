@@ -18,7 +18,7 @@ taskifyRouter.get('/tasks', async (_req: AuthenticatedRequest, res) => {
     Task.find({
       ...params,
       createdBy: new mongoose.Types.ObjectId(_req.user?._id),
-    }).then(
+    }).exec().then(
       data => {
         res.status(200).json([...data]);
       },
@@ -37,7 +37,7 @@ taskifyRouter.get('/tasks/:id', async (req, res) => {
   // #swagger.security = [{Bearer: []}]
   try {
     const id = req?.params?.id;
-    Task.findById(id).then(
+    Task.findById(id).exec().then(
       data => {
         res.status(200).json({ data });
       },
@@ -100,7 +100,7 @@ taskifyRouter.put('/tasks/:id', async (req, res) => {
   try {
     const id = req?.params?.id;
     const update = req.body;
-    Task.findByIdAndUpdate(id, update).then(
+    Task.findByIdAndUpdate(id, update).exec().then(
       data => {
         res.status(200).json({});
       },
@@ -120,7 +120,7 @@ taskifyRouter.delete('/tasks/:id', async (req, res) => {
   // #swagger.security = [{Bearer: []}]
   try {
     const id = req?.params?.id;
-    Task.findByIdAndDelete(id).then(
+    Task.findByIdAndDelete(id).exec().then(
       () => {
         res.status(200).json({});
       },
