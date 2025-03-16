@@ -22,7 +22,7 @@ describe('authMiddleware', () => {
   });
 
   it('should call next if token is valid', async () => {
-    (jwt.verify as jest.Mock).mockReturnValue({ id: 'userId' });
+    (jwt.verify as jest.Mock).mockReturnValue({ _id: 'userId' });
 
     await authMiddleware(req as AuthenticatedRequest, res as Response, next);
 
